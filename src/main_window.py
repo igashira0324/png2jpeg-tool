@@ -197,21 +197,23 @@ class MainWindow(ctk.CTkFrame):
         output_label = ctk.CTkLabel(output_frame, text="出力フォルダ:", font=self.label_font, anchor="w", width=80)
         output_label.pack(side="left")
 
+        # 参照ボタンを先にpack（右側に固定）
+        self.select_output_btn = ctk.CTkButton(
+            output_frame, text="参照", font=self.button_font, width=60, height=30,
+            command=self.select_output_folder,
+            fg_color="#3b82f6", hover_color="#2563eb", text_color="#ffffff",
+            corner_radius=6
+        )
+        self.select_output_btn.pack(side="right", padx=(5, 0))
+
+        # パス表示ラベル（残りのスペースを使用）
         self.default_output_path = str(Path.home() / "Desktop")
         self.output_path_label = ctk.CTkLabel(
             output_frame, text=self.default_output_path, font=self.info_font,
             fg_color="#000000", text_color="#ffffff", corner_radius=6, height=30,
             anchor="w", padx=8
         )
-        self.output_path_label.pack(side="left", fill="x", expand=True, padx=8)
-
-        self.select_output_btn = ctk.CTkButton(
-            output_frame, text="参照", font=self.button_font, width=80, height=30,
-            command=self.select_output_folder,
-            fg_color="#3b82f6", hover_color="#2563eb", text_color="#ffffff",
-            corner_radius=6
-        )
-        self.select_output_btn.pack(side="right")
+        self.output_path_label.pack(side="left", fill="x", expand=True, padx=(8, 0))
 
         # 下部コントロールエリアに2つの変換ボタンを配置
         convert_btn_frame = ctk.CTkFrame(self.settings_frame, fg_color="transparent")
